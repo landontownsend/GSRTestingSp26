@@ -9,8 +9,8 @@ class Response:
     """Standardized response from any AI model."""
     
     # What every response needs:
-    content: str                    # The text
-    model: str                      # Which model generated that text
+    content: str                    #The text
+    model: str                      #Which model generated that text
     
     # Token usage for cost calculations
     prompt_tokens: int
@@ -20,11 +20,11 @@ class Response:
     # Metadata
     finish_reason: str              # "stop", "length", etc.
     latency_ms: float              # How long it took
-    timestamp: datetime             # When it was generated
+    timestamp: datetime             # When generated
     
     # Extras
-    metadata: Dict[str, Any]       # Provider-specific info
-    raw_response: Any              # For debugging
+    metadata: Dict[str, Any]       # Provider specific info
+    raw_response: Any              
 
 
 @dataclass
@@ -43,8 +43,8 @@ class ModelInfo:
     supports_functions: bool
     
     # Costs
-    input_cost_per_1k: float       # Per 1000 input tokens
-    output_cost_per_1k: float      # Per 1000 output tokens
+    input_cost_per_1k: float       #Per 1000 input tokens
+    output_cost_per_1k: float      #Per 1000 output tokens
     
     # Limits
     rate_limit_rpm: Optional[int] = None  # Requests per minute
