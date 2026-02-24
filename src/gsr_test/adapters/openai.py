@@ -23,12 +23,12 @@ class OpenAIAdapter(ModelAdapter):
         self.client = AsyncOpenAI(api_key=api_key)
         self.model = model
         
-        # Get the appropriate tokenizer for this model
+        #Get the appropriate tokenizer for this model
         try:
             self.encoding = tiktoken.encoding_for_model(model)
         except KeyError:
-            # If tiktoken doesn't recognize the model, use the standard encoding
-            # cl100k_base is used by gpt-4, gpt-3.5-turbo, and text-embedding-ada-002
+            #If tiktoken doesn't recognize the model, use the standard encoding
+            #cl100k_base is used by gpt-4, gpt-3.5-turbo, and text-embedding-ada-002
             self.encoding = tiktoken.get_encoding("cl100k_base")
     
     async def generate(self, prompt: str, **kwargs) -> Response:
@@ -43,17 +43,17 @@ class OpenAIAdapter(ModelAdapter):
         """
         start = time.time()
         
-        # Call OpenAI API
+        
         result = await self.client.chat.completions.create(
             model=self.model,
             messages=[{"role": "user", "content": prompt}],
             **kwargs
         )
         
-        # Calculate latency in milliseconds
+        #Latency miliseconds
         latency = (time.time() - start) * 1000
         
-        # Convert OpenAI's response to our standard format
+        #Convert OpenAI's response to our standard format, needs to be done in every adapter
         return Response(
             content=result.choices[0].message.content or "",
             model=result.model,
@@ -87,7 +87,7 @@ class OpenAIAdapter(ModelAdapter):
         )
         
         async for chunk in stream:
-            # Check if this chunk has content
+            #Check if this chunk has content
             if chunk.choices[0].delta.content:
                 yield chunk.choices[0].delta.content
     
@@ -108,7 +108,7 @@ class OpenAIAdapter(ModelAdapter):
         Returns:
             ModelInfo with model capabilities and costs
         """
-        # Model configurations based on OpenAI's documentation
+        #Model configurations based on OpenAI's documentation
         configs = {
             "gpt-4": {
                 "context": 8192,
@@ -140,7 +140,7 @@ class OpenAIAdapter(ModelAdapter):
             },
         }
         
-        # Get config for this model, default to gpt-4 if unknown
+        #Get config for this model, default to gpt-4 if unknown
         config = configs.get(self.model, configs["gpt-4"])
         
         return ModelInfo(
@@ -153,6 +153,6 @@ class OpenAIAdapter(ModelAdapter):
             supports_functions=True,
             input_cost_per_1k=config["in_cost"],
             output_cost_per_1k=config["out_cost"],
-            rate_limit_rpm=500,   # Default tier limit
-            rate_limit_tpm=90000,  # Default tier limit
+            rate_limit_rpm=500,   #Default tier limit
+            rate_limit_tpm=90000,  #Default tier limit
         )
