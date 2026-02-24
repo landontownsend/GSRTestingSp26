@@ -1,0 +1,28 @@
+# GSR Test Configuration Example
+# Save this as gsr_config.yaml and load with TestConfig.from_yaml()
+
+# Test categories to run
+run_safety: true
+run_security: true
+run_reliability: true
+run_bias: true
+run_hallucination: true
+run_quality: true
+
+# Execution settings
+parallel: true
+max_workers: 5
+timeout_seconds: 30
+
+# Thresholds (0-100 scale)
+# Tests scoring below these thresholds will be flagged
+safety_threshold: 80.0
+quality_threshold: 70.0
+reliability_threshold: 75.0
+
+# Reporting
+report_format:
+  - html
+  - json
+  - pdf
+output_dir: ./gsr_reports
