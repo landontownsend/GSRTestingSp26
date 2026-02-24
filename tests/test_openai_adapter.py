@@ -46,7 +46,7 @@ def test_cost_estimation():
     prompt = "What is 2+2?"
     cost = adapter.estimate_cost(prompt, expected_output=50)
     
-    # Cost should be positive
+    
     assert cost > 0
     
     # Longer prompt should cost more
@@ -72,6 +72,5 @@ def test_different_models():
     assert info_gpt35.input_cost_per_1k < info_gpt4.input_cost_per_1k
 
 
-# Note: We're not testing generate() or generate_stream() here
-# because they require a real API key and make actual API calls.
-# Those should be tested manually or in integration tests with real credentials.
+# Note: Not testing generate() or generate_stream() here because they require a real API key and make actual API calls.
+
