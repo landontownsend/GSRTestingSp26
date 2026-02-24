@@ -96,8 +96,8 @@ isort src/ tests/
 
 ## License
 
-MIT License - see LICENSE file for details
+Property of Aanlytica
 
 ## Contributing
 
-Contributions welcome! Please read CONTRIBUTING.md for guidelines.
+Contributions welcome! (Analytica Only)
